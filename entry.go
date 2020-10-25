@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	pspentries "github.com/Mimoja/PSP-Entry-Types"
+	pspentries "github.com/orangecms/PSP-Entry-Types"
 )
 
 type (

@@ -1,4 +1,4 @@
-module github.com/mimoja/amdfw
+module github.com/orangecms/amdfw
 
 go 1.13
 

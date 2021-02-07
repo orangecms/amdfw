@@ -175,17 +175,17 @@ var (
 	testBHDDirectory = Directory{
 		Header: testBHDDirectoryHeader,
 		Entries: []Entry{
-			{DirectoryEntry: DirectoryEntry{Type: 0x60, Size: 0x2000, Location: 0xff1c2000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x200060, Size: 0x2000, Location: 0xff1c4000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x68, Size: 0x2000, Location: 0xff1c6000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x200068, Size: 0x2000, Location: 0xff1c8000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x61, Size: 0x0, Location: 0x0, Reserved: 0x0, Unknown: &testBHDDirEntryKnown0xA2}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x30062, Size: 0x200000, Location: 0xffe00000, Reserved: 0x0, Unknown: &testBHDDirEntryKnown0x9E}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x100064, Size: 0x3c40, Location: 0xff1ca000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x100065, Size: 0x330, Location: 0xff1cdd00, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x400064, Size: 0x4610, Location: 0xff1ce100, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x400065, Size: 0x320, Location: 0xff1d2800, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
-			{DirectoryEntry: DirectoryEntry{Type: 0x70, Size: 0x400, Location: 0xff641000, Reserved: 0x0, Unknown: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x60, Size: 0x2000, Location: 0xff1c2000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x200060, Size: 0x2000, Location: 0xff1c4000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x68, Size: 0x2000, Location: 0xff1c6000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x200068, Size: 0x2000, Location: 0xff1c8000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x61, Size: 0x0, Location: 0x0, Reserved: 0x0, Destination: &testBHDDirEntryKnown0xA2}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x30062, Size: 0x200000, Location: 0xffe00000, Reserved: 0x0, Destination: &testBHDDirEntryKnown0x9E}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x100064, Size: 0x3c40, Location: 0xff1ca000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x100065, Size: 0x330, Location: 0xff1cdd00, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x400064, Size: 0x4610, Location: 0xff1ce100, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x400065, Size: 0x320, Location: 0xff1d2800, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
+			{DirectoryEntry: DirectoryEntry{Type: 0x70, Size: 0x400, Location: 0xff641000, Reserved: 0x0, Destination: &testBHDDirEntryUnknown0xFF}},
 		},
 		Location: testBHDDirBase - DefaultFlashMapping,
 	}
@@ -285,10 +285,10 @@ func TestParseBHDDirectory(t *testing.T) {
 	assert.Equal(t, testBHDDirBase-DefaultFlashMapping, dir.Location)
 
 	for i := 0; i < len(dir.Entries); i++ {
-		assert.Equal(t, *testBHDDirectory.Entries[i].DirectoryEntry.Unknown, *dir.Entries[i].DirectoryEntry.Unknown, fmt.Sprint("Entries padding does not match: ", i))
+		assert.Equal(t, *testBHDDirectory.Entries[i].DirectoryEntry.Destination, *dir.Entries[i].DirectoryEntry.Destination, fmt.Sprint("Entries padding does not match: ", i))
 
 		// Whipe unknown Pointer
-		dir.Entries[i].DirectoryEntry.Unknown = testBHDDirectory.Entries[i].DirectoryEntry.Unknown
+		dir.Entries[i].DirectoryEntry.Destination = testBHDDirectory.Entries[i].DirectoryEntry.Destination
 		assert.Equal(t, testBHDDirectory.Entries[i].DirectoryEntry, dir.Entries[i].DirectoryEntry)
 	}
 }

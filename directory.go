@@ -28,11 +28,11 @@ type (
 	}
 
 	DirectoryEntry struct {
-		Type     uint32
-		Size     uint32
-		Location uint32
-		Reserved uint32
-		Unknown  *uint64
+		Type        uint32
+		Size        uint32
+		Location    uint32
+		Reserved    uint32
+		Destination *uint64
 	}
 
 	binaryDirectoryEntry struct {
@@ -118,7 +118,7 @@ func ParseDirectory(firmwareBytes []byte, address uint32, flashMapping uint32) (
 			}
 			val := binary.LittleEndian.Uint64(unknownBytes)
 
-			entry.DirectoryEntry.Unknown = &val
+			entry.DirectoryEntry.Destination = &val
 		}
 
 		directory.Entries[i] = *entry
@@ -167,9 +167,9 @@ func (entry *DirectoryEntry) Write(baseImage []byte, address uint32) error {
 
 	bytesNeeded := binary.Size(binaryDirectoryEntry{})
 
-	if entry.Unknown != nil {
-		binary.Write(buf, binary.LittleEndian, *entry.Unknown)
-		bytesNeeded += binary.Size(*entry.Unknown)
+	if entry.Destination != nil {
+		binary.Write(buf, binary.LittleEndian, *entry.Destination)
+		bytesNeeded += binary.Size(*entry.Destination)
 	}
 
 	bytesCopied := copy(baseImage[address:], buf.Bytes())
@@ -203,7 +203,7 @@ func (directory *Directory) Write(baseImage []byte, flashMapping uint32) error {
 
 		entryLength := uint32(16)
 
-		if entry.DirectoryEntry.Unknown != nil {
+		if entry.DirectoryEntry.Destination != nil {
 			entryLength += 8
 		}
 
@@ -274,7 +274,7 @@ func (directory *Directory) ValidateChecksum() (valid bool, actual uint32) {
 
 		if cookie == BHDCOOCKIE || cookie == SECONDBHDCOOCKIE {
 			uint64Buffer := make([]byte, 8)
-			binary.LittleEndian.PutUint64(uint64Buffer, *entry.DirectoryEntry.Unknown)
+			binary.LittleEndian.PutUint64(uint64Buffer, *entry.DirectoryEntry.Destination)
 			buf.Write(uint64Buffer)
 		}
 	}

@@ -25,6 +25,8 @@ github.com/mattn/go-runewidth v0.0.4 h1:2BvfKmzob6Bmd4YsL0zygOqfdFnK7GR4QL06Do4/
 github.com/mattn/go-runewidth v0.0.4/go.mod h1:LwmH8dsx7+W8Uxz3IHJYH5QSwggIsqBzpuz5H//U1FU=
 github.com/mitchellh/mapstructure v1.1.2 h1:fmNYVwqnSfB9mZU6OS2O6GsXM+wcskZDuKQzvN1EDeE=
 github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh9fWfEaFds41c1Y=
+github.com/orangecms/PSP-Entry-Types v0.0.0-20201025141310-0e1b8c5a3898 h1:xpH5FRpandKcCnX/gIDwhF/mDtrLj3ljPKVH5nC3j08=
+github.com/orangecms/PSP-Entry-Types v0.0.0-20201025141310-0e1b8c5a3898/go.mod h1:gveQh8FM6402D5v+xtvRHYwecihTLmxPQDZJTFjpqSo=
 github.com/orangecms/PSP-Entry-Types v1.0.0 h1:n+ArIVKXunz/+UuTCUFgeZzrQm8upfcTBDIEaTUFJSU=
 github.com/orangecms/PSP-Entry-Types v1.0.0/go.mod h1:gveQh8FM6402D5v+xtvRHYwecihTLmxPQDZJTFjpqSo=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

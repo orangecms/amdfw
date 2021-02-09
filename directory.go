@@ -51,7 +51,8 @@ func ParseDirectory(firmwareBytes []byte, address uint32, flashMapping uint32) (
 	}
 
 	if address > uint32(len(firmwareBytes)) {
-		return nil, fmt.Errorf("Firmwarebytes not long enough for reading directory header..")
+		// return nil, fmt.Errorf("Firmwarebytes not long enough for reading directory header..")
+		address -= 0xff000000
 	}
 
 	directory.Location = address
@@ -68,7 +69,13 @@ func ParseDirectory(firmwareBytes []byte, address uint32, flashMapping uint32) (
 
 	isCookieKnown := false
 
-	for _, c := range []string{PSPCOOCKIE, DUALPSPCOOCKIE, SECONDPSPCOOCKIE, BHDCOOCKIE, SECONDBHDCOOCKIE} {
+	for _, c := range []string{
+		PSPCOOCKIE,
+		DUALPSPCOOCKIE,
+		SECONDPSPCOOCKIE,
+		BHDCOOCKIE,
+		SECONDBHDCOOCKIE,
+	} {
 		if isCookieKnown = c == cookie; isCookieKnown {
 			break
 		}
